@@ -57,6 +57,8 @@ RUN set -x \
 ENV PATH /opt/kibana/bin:$PATH
 
 COPY docker-entrypoint.sh /
+COPY signup-app.js /
+COPY kibana-routes.js /
 
 # NODEJS
 

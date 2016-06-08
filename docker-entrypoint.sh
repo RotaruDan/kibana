@@ -16,7 +16,13 @@ if [ "$1" = 'kibana' ]; then
 		sed -ri "s!^(\#\s*)?(server\.basePath:).*!\2 '$KIBANA_BASE_PATH'!" /opt/kibana/config/kibana.yml
 	fi
 
+	if [ "$SIGNUP_APP" ]; then	
+		npm install request
+		node ./signup-app.js
+	fi	
+
 	set -- gosu kibana tini -- "$@"
 fi
+
 
 exec "$@"
