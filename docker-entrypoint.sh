@@ -17,7 +17,6 @@ if [ "$1" = 'kibana' ]; then
 	fi
 
 	if [ "$SIGNUP_APP" ]; then	
-		npm install request
 		node ./signup-app.js
 	fi	
 
