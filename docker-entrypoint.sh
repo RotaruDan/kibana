@@ -16,9 +16,17 @@ if [ "$1" = 'kibana' ]; then
 		sed -ri "s!^(\#\s*)?(server\.basePath:).*!\2 '$KIBANA_BASE_PATH'!" /etc/kibana/kibana.yml
 	fi
 
-	if [ "$SIGNUP_APP" ]; then	
+	if [ "$SIGNUP_APP" ]; then
 		node ./signup-app.js
-	fi	
+	fi
+
+        if [ "$TILEMAP_MAX_ZOOM" ]; then
+                echo "tilemap.options.maxZoom: $TILEMAP_MAX_ZOOM" >> /etc/kibana/kibana.yml
+        fi
+
+        if [ "$TILEMAP_URL" ]; then
+                echo "tilemap.url: $TILEMAP_URL" >> /etc/kibana/kibana.yml
+        fi
 
 	set -- gosu kibana tini -- "$@"
 fi
