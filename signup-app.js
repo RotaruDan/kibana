@@ -32,8 +32,8 @@ var baseUsersAPI = process.env.A2_API_PATH;
 
 request.post(baseUsersAPI + 'login', {
         form: {
-            username: 'root',
-            password: 'root'
+            username: process.env.KIBANA_A2ADMINUSERNAME || 'root',
+            password: process.env.KIBANA_A2ADMINPASSWORD || 'root'
         },
         json: true
     },
