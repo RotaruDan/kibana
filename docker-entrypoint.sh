@@ -28,6 +28,7 @@ if [ "$1" = 'kibana' ]; then
                 echo "tilemap.url: $TILEMAP_URL" >> /etc/kibana/kibana.yml
         fi
 
+    chmod 777 -R /usr/share/kibana/
 	set -- gosu kibana tini -- "$@"
 fi
 
