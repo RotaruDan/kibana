@@ -62,7 +62,8 @@ RUN set -x \
 	\
 # ensure the default configuration is useful when using --link
 	&& sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /etc/kibana/kibana.yml \
-	&& grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /etc/kibana/kibana.yml
+	&& grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /etc/kibana/kibana.yml \
+	&& chmod 777 -R /usr/share/kibana/plugins/
 
 ENV PATH /usr/share/kibana/bin:$PATH
 
@@ -103,6 +104,7 @@ RUN buildDeps='xz-utils' \
     && apt-get purge -y --auto-remove $buildDeps \
     && npm install request
 
+COPY ./plugins /usr/share/kibana/plugins
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
