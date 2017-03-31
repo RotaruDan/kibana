@@ -29,7 +29,6 @@ var request = require('request');
 var appData = require(Path.resolve(__dirname, './kibana-routes.js')).app;
 
 var baseUsersAPI = process.env.A2_API_PATH;
-
 request.post(baseUsersAPI + 'login', {
         form: {
             username: process.env.KIBANA_A2ADMINUSERNAME || 'root',
@@ -53,33 +52,48 @@ request.post(baseUsersAPI + 'login', {
         appData.host = process.env.MY_HOST;
 
         request({
-            uri: baseUsersAPI + 'applications',
-            method: 'POST',
-            body: appData,
-            json: true,
+            uri: baseUsersAPI + 'applications/prefix/' + appData.prefix,
+            method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + body.user.token
             }
-        }, function (err, httpResponse, body) {
-            if (err) {
-                console.error(err);
-                if (err.errno && err.errno.indexOf('ECONNREFUSED') > -1) {
-                    console.error('Could not connect to A2 to register the kibana application!');
-                    return process.exit(-1);
+        }, function (err, httpResponse, response) {
+            if (!err) {
+                appData.look = JSON.parse(response).look;
+            }
+
+            request({
+                uri: baseUsersAPI + 'applications',
+                method: 'POST',
+                body: appData,
+                json: true,
+                headers: {
+                    Authorization: 'Bearer ' + body.user.token
                 }
-                console.log('Did not register the backend with A2, continuing anyway!');
-                return process.exit(0);
-            }
+            }, function (err, httpResponse, body) {
+                if (err) {
+                    console.error(err);
+                    if (err.errno && err.errno.indexOf('ECONNREFUSED') > -1) {
+                        console.error('Could not connect to A2 to register the kibana application!');
+                        return process.exit(-1);
+                    }
+                    console.log('Did not register the backend with A2, continuing anyway!');
+                    return process.exit(0);
+                }
 
-            if (body.message) {
-                console.error('Error', body.message,
-                    'Did not register the backend with A2, continuing anyway!');
-            } else {
-                console.log('Application and roles setup complete.');
-            }
+                if (body.message) {
+                    console.error('Error', body.message,
+                        'Did not register the backend with A2, continuing anyway!');
+                } else {
+                    console.log('Application and roles setup complete.');
+                }
 
-            process.exit(0);
+                process.exit(0);
+            });
+
         });
+
+
     });
 
 
