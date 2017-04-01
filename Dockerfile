@@ -104,7 +104,8 @@ RUN buildDeps='xz-utils' \
     && apt-get purge -y --auto-remove $buildDeps \
     && npm install request
 
-COPY ./plugins /usr/share/kibana/plugins
+RUN kibana-plugin install https://github.com/nreese/kibana-time-plugin/releases/download/v5.0.0/kibana.zip \
+  && kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
