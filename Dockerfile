@@ -105,7 +105,8 @@ RUN buildDeps='xz-utils' \
     && npm install request
 
 RUN kibana-plugin install https://github.com/nreese/kibana-time-plugin/releases/download/v5.0.0/kibana.zip \
-  && kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip
+  && kibana-plugin install https://github.com/prelert/kibana-swimlane-vis/releases/download/v5.0.0/prelert_swimlane_vis-5.0.0.zip \
+  && kibana-plugin install https://github.com/e-ucm/tk-kibana-vis/releases/download/5.0.0-1/tk-kibana-vis.zip
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
