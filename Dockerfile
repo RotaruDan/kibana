@@ -5,7 +5,7 @@ COPY signup-app.js /
 COPY kibana-routes.js /
 
 RUN kibana-plugin install https://github.com/e-ucm/kibana-time-plugin/releases/download/5.6.2/kibana.zip \
-  && kibana-plugin install https://github.com/e-ucm/kibanareleases/download/5.6.2/vega_vis-0.3.1--for-Kibana-5.6.2.zip \
+  && kibana-plugin install https://github.com/e-ucm/kibana/releases/download/5.6.2/vega_vis-0.3.1--for-Kibana-5.6.2.zip \
   && kibana-plugin install https://github.com/e-ucm/kibana-swimlane-vis/releases/download/5.6.2/kibana.zip \
   && kibana-plugin install https://github.com/e-ucm/tk-kibana-vis/releases/download/5.6.2/kibana.zip
 
