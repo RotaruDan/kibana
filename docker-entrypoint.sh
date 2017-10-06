@@ -12,7 +12,7 @@ if [ "$1" = '/usr/local/bin/kibana-docker' ]; then
 	fi
 
 	if [ "$SIGNUP_APP" ]; then
-		node ./signup-app.js
+		$HOME/node/bin/node ./signup-app.js
 	fi
 
     if [ "$TILEMAP_MAX_ZOOM" ]; then
