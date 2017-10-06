@@ -1,6 +1,6 @@
 FROM docker.elastic.co/kibana/kibana:5.6.2
 
-COPY docker-entrypoint.sh /usr/share/kibana/
+COPY docker-entrypoint.sh /
 COPY signup-app.js /usr/share/kibana/
 COPY kibana-routes.js /usr/share/kibana/
 
