@@ -30,6 +30,9 @@ var appData = require(Path.resolve(__dirname, './kibana-routes.js')).app;
 
 var baseUsersAPI = process.env.A2_API_PATH;
 request.post(baseUsersAPI + 'login', {
+        headers: {
+            Accept: 'application/json'
+        },
         form: {
             username: process.env.KIBANA_A2ADMINUSERNAME || 'root',
             password: process.env.KIBANA_A2ADMINPASSWORD || 'root'
@@ -55,7 +58,8 @@ request.post(baseUsersAPI + 'login', {
             uri: baseUsersAPI + 'applications/prefix/' + appData.prefix,
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + body.user.token
+                Authorization: 'Bearer ' + body.user.token,
+                Accept: 'application/json'
             }
         }, function (err, httpResponse, response) {
             if (!err) {
@@ -68,7 +72,8 @@ request.post(baseUsersAPI + 'login', {
                 body: appData,
                 json: true,
                 headers: {
-                    Authorization: 'Bearer ' + body.user.token
+                    Authorization: 'Bearer ' + body.user.token,
+                    Accept: 'application/json'
                 }
             }, function (err, httpResponse, body) {
                 if (err) {
